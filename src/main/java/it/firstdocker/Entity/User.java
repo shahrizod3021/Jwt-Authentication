@@ -3,13 +3,9 @@ package it.firstdocker.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -46,28 +42,30 @@ public class User implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
-    private boolean accountNonExpired;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
-    private boolean accountNonLocked;
+    private boolean accountNonExpired = true;
 
-    private boolean credentialNonExpired;
+    private boolean accountNonLocked = true;
 
-    private  boolean enabled;
+    private boolean credentialNonExpired = true;
 
-    private String role;
+    private  boolean enabled = true;
 
-    private String token;
 
-    public User(Long id, String name, String email, String password, Integer age, Gender gender) {
+
+    public User(Long id, String name, String email, String password, Integer age, Gender gender, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.age = age;
         this.gender = gender;
+        this.role = role;
     }
 
-    public User(String name, String email, String password, Integer age, Gender gender, String  role) {
+    public User(String name, String email, String password, Integer age, Gender gender, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -78,7 +76,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(RoleName.ADMIN.name()));
+        return role.getUserAuthorities();
     }
 
     @Override

@@ -4,7 +4,7 @@ import it.firstdocker.Dtos.CustomerDto;
 import it.firstdocker.Dtos.CustomerRegistrationRequest;
 import it.firstdocker.Dtos.ResCustomer;
 import it.firstdocker.Entity.Gender;
-import it.firstdocker.Entity.RoleName;
+import it.firstdocker.Entity.Role;
 import it.firstdocker.Exceptions.DuplicateDataException;
 import it.firstdocker.Entity.User;
 import it.firstdocker.Exceptions.ResourceNotfoundExceptions;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -58,20 +57,20 @@ public class CustomerService {
                 ));
     }
 
-    public User addCustomer(CustomerRegistrationRequest customerRegistrationRequest) {
-        String email = customerRegistrationRequest.email();
-        if (customerFull.existsCustomerWithEmail(email)) {
-            throw new DuplicateDataException("usbu email oldindan mavjud");
-        }
-        User user = User.builder()
-                .name(customerRegistrationRequest.name())
-                .age(customerRegistrationRequest.age())
-                .gender(customerRegistrationRequest.gender() == 1 ? Gender.MALE : Gender.FEMALE)
-                .email(customerRegistrationRequest.email())
-                .password(passwordEncoder.encode(customerRegistrationRequest.password()))
-                .role(RoleName.USER.name())
-                .build();
-        customerFull.insertCustomer(user);
-        return user;
-    }
+//    public User addCustomer(CustomerRegistrationRequest customerRegistrationRequest) {
+//        String email = customerRegistrationRequest.email();
+//        if (customerFull.existsCustomerWithEmail(email)) {
+//            throw new DuplicateDataException("usbu email oldindan mavjud");
+//        }
+//        User user = User.builder()
+//                .name(customerRegistrationRequest.name())
+//                .age(customerRegistrationRequest.age())
+//                .gender(customerRegistrationRequest.gender() == 1 ? Gender.MALE : Gender.FEMALE)
+//                .email(customerRegistrationRequest.email())
+//                .password(passwordEncoder.encode(customerRegistrationRequest.password()))
+//                .role(Role.USER)
+//                .build();
+//        customerFull.insertCustomer(user);
+//        return user;
+//    }
 }

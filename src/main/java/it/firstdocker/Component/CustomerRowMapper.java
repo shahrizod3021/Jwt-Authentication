@@ -1,6 +1,7 @@
 package it.firstdocker.Component;
 
 import it.firstdocker.Entity.Gender;
+import it.firstdocker.Entity.Role;
 import it.firstdocker.Entity.User;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,8 @@ public class CustomerRowMapper implements RowMapper<User> {
                 rs.getString("email"),
                 rs.getString("password"),
                 rs.getInt("age"),
-                Gender.valueOf(rs.getString("gender"))
+                Gender.valueOf(rs.getString("gender")),
+                Role.valueOf(rs.getString("role"))
         );
     }
 }

@@ -1,7 +1,7 @@
 package it.firstdocker.Component;
 
 import it.firstdocker.Entity.Gender;
-import it.firstdocker.Entity.RoleName;
+import it.firstdocker.Entity.Role;
 import it.firstdocker.Entity.User;
 import it.firstdocker.Repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -38,8 +37,7 @@ public class DataLoader implements CommandLineRunner {
                     passwordEncoder.encode("q12w3e4r"),
                     17,
                     Gender.MALE,
-                    RoleName.ADMIN.name()
-
+                    Role.ADMIN
             );
             customerRepository.save(user);
         }
