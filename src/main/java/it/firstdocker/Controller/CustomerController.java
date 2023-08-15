@@ -2,7 +2,6 @@ package it.firstdocker.Controller;
 
 import it.firstdocker.Dtos.CustomerDto;
 import it.firstdocker.Dtos.ResCustomer;
-import it.firstdocker.Jwt.JWTUtil;
 import it.firstdocker.Service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,13 +20,11 @@ public class CustomerController {
 
 
     @GetMapping
-    @PreAuthorize(value = "hasAnyRole('USER')")
     public List<ResCustomer> getCustomer() {
         return customerService.getCustomerDtos();
     }
 
     @GetMapping("/{customerId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public CustomerDto getCustomer(@PathVariable Long customerId) {
         return customerService.getCustomer(customerId);
     }
